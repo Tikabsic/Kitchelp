@@ -1,7 +1,7 @@
 ﻿
 namespace Domain.Enums
 {
-    internal enum Role
+    public enum Role
     {
         Delivery = 1,
         Waiter,

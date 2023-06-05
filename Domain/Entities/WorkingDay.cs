@@ -2,14 +2,14 @@
 
 namespace Domain.Entities
 {
-    internal class WorkingDay
+    public class WorkingDay
     {
-        internal Restaurant? Restaurant { get; set; }
-        internal Guid RestaurantId { get; set; }
-        internal User? Employee { get; set; }
-        internal Guid EmployeeId { get; set; }
-        internal DateTime DateOfWork { get; set; }
-        internal string? ShiftStartAt { get; set; }
-        internal string? ShiftEndAt { get; set; }
+        public Restaurant? Restaurant { get; set; }
+        public Guid RestaurantId { get; set; }
+        public Employee? Employee { get; set; }
+        public Guid EmployeeId { get; set; }
+        public DateTime DateOfWork { get; set; }
+        public string? ShiftStartAt { get; set; }
+        public string? ShiftEndAt { get; set; }
     }
 }

@@ -1,19 +1,18 @@
-﻿
-
-using Domain.Enums;
+﻿using Domain.Enums;
 
 namespace Domain.Entities
 {
-    internal class User
+    public abstract class User
     {
-        internal Guid Id { get; set; }
-        internal Role Role { get; set; }
-        internal string? FirstName { get; set; }
-        internal string? LastName { get; set; }
-        internal int? DateOfBirth { get; set; }
-        internal List<Restaurant>? Restaurants { get; set; }
-        internal List<WorkingDay>? WorkingDays { get; set; }
-        internal List<Chat>? Chats { get; set; }
-        internal DateTime DateOfJoin { get; set; }
+        public Guid Id { get; set; }
+        public string? UserType { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+        public Role Role { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? DateOfBirth { get; set; }
+        public List<Chat>? Chats { get; set; }
+        public DateTime DateOfJoin { get; set; }
     }
 }

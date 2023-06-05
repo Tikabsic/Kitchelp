@@ -1,15 +1,16 @@
 ﻿
-using System.Reflection.Metadata;
-
 namespace Domain.Entities
 {
-    internal class Restaurant
+    public class Restaurant
     {
-        internal Guid Id { get; set; }
-        internal string? RestaurantName { get; set; }
-        internal User? RestaurantOwner { get; set; }
-        internal List<User>? Employees { get; set; }
-        internal DateTime DateOfJoin { get; set; }
-        internal DateTime DateOfPayment { get; set; }
+        public Guid Id { get; set; }
+        public string? RestaurantName { get; set; }
+        public Guid OwnerId { get; set; }
+        public Owner? Owner { get; set; }
+        public string? NIP { get; set; }
+        public string? Address { get; set; }
+        public List<Employee>? Employees { get; set; }
+        public DateTime DateOfJoin { get; set; }
+        public DateTime DateOfPayment { get; set; }
     }
 }

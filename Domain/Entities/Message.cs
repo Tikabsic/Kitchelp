@@ -1,14 +1,15 @@
 ﻿
 namespace Domain.Entities
 {
-    internal class ChatMessage
+    public class ChatMessage
     {
-        internal Guid Id { get; set; }
-        internal Guid ChatId { get; set; }
-        internal User? Author { get; set; }
-        internal Guid AuthorId { get; set; }
-        internal User? Reciver { get; set; }
-        internal Guid ReciverId { get; set; }
-        internal string? Message { get; set; }
+        public Guid Id { get; set; }
+        public Guid ChatId { get; set; }
+        public Chat? Chat { get; set; }
+        public User? Author { get; set; }
+        public Guid AuthorId { get; set; }
+        public User? Reciver { get; set; }
+        public Guid ReciverId { get; set; }
+        public string? Message { get; set; }
     }
 }

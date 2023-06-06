@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    internal class ShoppingListProduct
+    public class ShoppingListProduct
     {
-        internal Guid Id { get; set; }
-        internal ShoppingList? ShoppingList { get; set; }
-        internal Guid ShoppingListId { get; set; }
-        internal string? ProductName { get; set; }
-        internal float? Quantity { get; set; }
+        public Guid Id { get; set; }
+        public ShoppingList? ShoppingList { get; set; }
+        public Guid ShoppingListId { get; set; }
+        public string? ProductName { get; set; }
+        public float? Quantity { get; set; }
     }
 }

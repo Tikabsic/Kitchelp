@@ -21,6 +21,10 @@ namespace Infrastructure.Persistence.EntitiesConfig
             builder.HasOne(x => x.Chat)
                 .WithMany(x => x.Messages)
                 .HasForeignKey(x => x.ChatId);
+
+            builder.Property(x => x.Message)
+                .HasMaxLength(1000)
+                .IsRequired();
         }
     }
 }

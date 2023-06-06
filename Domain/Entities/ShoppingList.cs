@@ -1,13 +1,13 @@
 ﻿
 namespace Domain.Entities
 {
-    internal class ShoppingList
+    public class ShoppingList
     {
-        internal Guid ListId { get; set; }
-        internal Restaurant? Restaurant { get; set; }
-        internal Guid RestaurantId { get; set; }
-        internal User? Author { get; set; }
-        internal Guid AuthorId { get; set; }
-        internal List<ShoppingListProduct>? Products { get; set; }
+        public Guid ListId { get; set; }
+        public Restaurant? Restaurant { get; set; }
+        public Guid RestaurantId { get; set; }
+        public User? Author { get; set; }
+        public Guid AuthorId { get; set; }
+        public List<ShoppingListProduct>? Products { get; set; }
     }
 }

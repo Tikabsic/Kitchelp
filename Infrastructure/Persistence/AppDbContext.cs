@@ -11,6 +11,9 @@ namespace Infrastructure.Persistence
         public DbSet<RestaurantEmployee> RestaurantEmployees { get; set; }
         public DbSet<Chat> ChatBoxes { get; set; }
         public DbSet<ChatMessage> Messages { get; set; }
+        public DbSet<WorkingDay> WorkingDays { get; set; }
+        public DbSet<ShoppingList> ShoppingLists { get; set; }
+        public
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

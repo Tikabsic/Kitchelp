@@ -10,7 +10,10 @@ namespace Domain.Entities
         public string? NIP { get; set; }
         public string? Address { get; set; }
         public List<Employee>? Employees { get; set; }
+        public Warehouse? Warehouse { get; set; }
+        public List<ShoppingList>? ShoppingLists { get; set; }
         public DateTime DateOfJoin { get; set; }
         public DateTime DateOfPayment { get; set; }
+
     }
 }

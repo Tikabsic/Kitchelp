@@ -40,7 +40,8 @@ namespace Infrastructure.Persistence.EntitiesConfig
 
             builder.HasMany(x => x.Chats)
                     .WithOne(x => x.Creator)
-                    .HasForeignKey(x => x.CreatorId);
+                    .HasForeignKey(x => x.CreatorId)
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

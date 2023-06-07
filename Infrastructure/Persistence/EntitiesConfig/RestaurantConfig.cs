@@ -36,9 +36,9 @@ namespace Infrastructure.Persistence.EntitiesConfig
             builder.HasMany(x => x.Employees)
                 .WithMany(e => e.Jobs)
                 .UsingEntity<RestaurantEmployee>(
-                        j => j.HasOne(re => re.Employee).WithMany(),
-                        j => j.HasOne(re => re.Restaurant).WithMany())
-                .HasKey(re => new { re.RestaurantId, re.EmployeeId});
+                    j => j.HasOne(re => re.Employee).WithMany().OnDelete(DeleteBehavior.Restrict),
+                    j => j.HasOne(re => re.Restaurant).WithMany().OnDelete(DeleteBehavior.Restrict))
+                .HasKey(re => new { re.RestaurantId, re.EmployeeId });
         }
     }
 }

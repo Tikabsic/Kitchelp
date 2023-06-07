@@ -20,7 +20,8 @@ namespace Infrastructure.Persistence.EntitiesConfig
 
             builder.HasOne(x => x.Chat)
                 .WithMany(x => x.Messages)
-                .HasForeignKey(x => x.ChatId);
+                .HasForeignKey(x => x.ChatId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Property(x => x.Message)
                 .HasMaxLength(1000)

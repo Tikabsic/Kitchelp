@@ -4,6 +4,7 @@ namespace Domain.Entities
 {
     public class WorkingDay
     {
+        public Guid Id { get; set; }
         public Restaurant? Restaurant { get; set; }
         public Guid RestaurantId { get; set; }
         public Employee? Employee { get; set; }

@@ -18,7 +18,8 @@ namespace Infrastructure.Persistence.EntitiesConfig
 
             builder.HasMany(x => x.WorkingDays)
                 .WithOne(x => x.Employee)
-                .HasForeignKey(x => x.EmployeeId);
+                .HasForeignKey(x => x.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

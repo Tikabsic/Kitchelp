@@ -1,6 +1,5 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -10,14 +9,18 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.EntitiesConfig
 {
-    public class ChatConfig : IEntityTypeConfiguration<Chat>
+    internal class WarehouseConfig : IEntityTypeConfiguration<Warehouse>
     {
-        public void Configure(EntityTypeBuilder<Chat> builder)
+        public void Configure(EntityTypeBuilder<Warehouse> builder)
         {
             builder.HasKey(x => x.Id);
 
-            builder.HasIndex(x => new { x.CreatorId, x.ReciverId })
-                .IsUnique();
+            builder.HasIndex(x => x.Id);
+
+            builder.HasIndex(x => x.RestaurantId);
+
+            builder.HasOne(x => x.Restaurant)
+                .WithOne(x => x.Warehouse);
         }
     }
 }

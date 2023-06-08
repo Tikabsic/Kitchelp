@@ -1,10 +1,9 @@
-﻿using Application.Interfaces;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence
+namespace Application.Interfaces
 {
-    internal class AppDbContext : DbContext, IAppDbContext
+    public interface IAppDbContext
     {
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<User> Users { get; set; }
@@ -18,20 +17,5 @@ namespace Infrastructure.Persistence
         public DbSet<ShoppingListProduct> ShoppingListProducts { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
-
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
-        {
-
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>()
-                .HasDiscriminator<string>("UserType")
-                .HasValue<Owner>("Owner")
-                .HasValue<Employee>("Employee");
-
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
-        }
     }
 }

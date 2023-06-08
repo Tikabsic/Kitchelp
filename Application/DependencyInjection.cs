@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.DTOs;
+using Application.Interfaces;
+using Application.MappingProfiles;
+using Application.Services.RegisterService;
+using Application.Validation.RegisterValidator;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Application
 {
@@ -11,6 +13,10 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+
+            services.AddScoped<IValidator<RegisterRequestDTO>, RegisterValidator>();
+            services.AddScoped<IRegisterService, RegisterService>();
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfilesConfiguration)));
 
             return services;
         }

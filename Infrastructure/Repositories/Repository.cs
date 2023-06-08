@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Application.Interfaces;
+﻿using Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {

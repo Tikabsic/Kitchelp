@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Application.DTOs;
+using AutoMapper;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,8 @@ namespace Application.MappingProfiles
     {
         public MappingProfilesConfiguration()
         {
-
+            CreateMap<RegisterRequestDTO, Owner>();
+            CreateMap<RegisterRequestDTO, Employee>();
         }
     }
 }

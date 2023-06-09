@@ -1,34 +1,28 @@
 ﻿using Application.DTOs;
-using Application.Interfaces;
-using Application.Validation.RegisterValidator;
-using Domain.Entities;
-using Domain.Exceptions;
-using FluentValidation;
+using Application.Interfaces.RegisterService;
 
 namespace Application.Services.RegisterService
 {
     internal class RegisterService : IRegisterService
     {
-        private readonly IRepositoryFactory _repositoryFactory;
-        private readonly IValidator<RegisterRequestDTO> _registerValidator;
-
-        public RegisterService(IRepositoryFactory repositoryFactory,
-                               RegisterValidator registerValidator)                             
+        private readonly IRegisterServiceHelper _registerServiceHelper;
+        public RegisterService(IRegisterServiceHelper registerServiceHelper)                             
         {
-            _repositoryFactory = repositoryFactory;
-            _registerValidator = registerValidator;
+            _registerServiceHelper = registerServiceHelper;
         }
 
-        public async Task RegisterOwner(RegisterRequestDTO dto)
+        public async Task<bool> RegisterOwner(RegisterRequestDTO dto)
         {
-            var ownerRepository = _repositoryFactory.Create<Owner>();
-            var result = await _registerValidator.ValidateAsync(dto);
+            var request = await _registerServiceHelper.ValidateRequest(dto);
 
-            if (!result.IsValid)
+            if (!request)
             {
-                throw new BadValidationException("Something went wrong with validation.");
+                return false;
             }
 
+            await _registerServiceHelper.RegisterOwner(dto);
+
+            return true;
         }
     }
 }

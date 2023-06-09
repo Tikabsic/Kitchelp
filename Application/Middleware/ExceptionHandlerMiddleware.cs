@@ -1,10 +1,19 @@
-﻿using Domain.Exceptions;
+﻿using Application.Interfaces;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 
 namespace Application.Middleware
 {
-    internal class ExceptionMiddleware : IMiddleware
+    internal class ExceptionHandlerMiddleware : IMiddleware
     {
+        private readonly ILoggingHandler _loggingHandler;
+
+        public ExceptionHandlerMiddleware(ILoggingHandler loggingHandler)
+        {
+            _loggingHandler = loggingHandler;
+        }
+
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
@@ -13,6 +22,8 @@ namespace Application.Middleware
             }
             catch(BadValidationException exception)
             {
+                _loggingHandler.LogException(exception);
+
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(exception.Message);
             }

@@ -1,6 +1,6 @@
 ﻿namespace Application.DTOs
 {
-    internal class RegisterRequestDTO
+    public class RegisterRequestDTO
     {
         public string? Email { get; set; }
         public string? Password { get; set; }

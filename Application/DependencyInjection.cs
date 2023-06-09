@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
-using Application.Interfaces;
+using Application.Interfaces.RegisterService;
 using Application.MappingProfiles;
+using Application.Middleware;
 using Application.Services.RegisterService;
 using Application.Validation.RegisterValidator;
 using FluentValidation;
@@ -13,10 +14,18 @@ namespace Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-
+            //Validators scope
             services.AddScoped<IValidator<RegisterRequestDTO>, RegisterValidator>();
+
+            //Services scope
             services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<IRegisterServiceHelper, RegisterServiceHelper>();
+
+            //Automapper scope
             services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfilesConfiguration)));
+
+            //Middlewares
+            services.AddScoped<ExceptionHandlerMiddleware>();
 
             return services;
         }

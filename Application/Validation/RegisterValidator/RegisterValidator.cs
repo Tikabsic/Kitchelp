@@ -17,7 +17,7 @@ namespace Application.Validation.RegisterValidator
                 {
                     var EmailInUse = dbContext.Users.Any(u => u.Email == value);
 
-                    if(EmailInUse)
+                    if (EmailInUse)
                     {
                         context.AddFailure("Email", "Email already taken.");
                     }

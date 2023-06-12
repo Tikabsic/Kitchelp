@@ -31,11 +31,8 @@ namespace Infrastructure.Persistence.EntitiesConfig
 
             builder.Property(x => x.DateOfBirth)
                 .IsRequired()
+
                 .HasMaxLength(10);
-
-            builder.Property(x => x.DateOfJoin)
-                .ValueGeneratedOnAdd();
-
 
             builder.HasMany(x => x.Chats)
                     .WithOne(x => x.Creator)

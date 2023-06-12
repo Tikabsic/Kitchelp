@@ -50,5 +50,23 @@ namespace Application.Services.RegisterService
 
             await Task.CompletedTask;
         }
+
+        public async Task RegisterEmployee(RegisterRequestDTO dto, Guid restaurantId)
+        {
+            var employeeRepository = _repositoryFactory.Create<Employee>();
+            var restaurantEmployeeRepository = _repositoryFactory.Create<RestaurantEmployee>();
+            var newEmployee = _mapper.Map<Employee>(dto);
+            var restaurantEmploye = new RestaurantEmployee()
+            {
+                EmployeeId = newEmployee.Id,
+                RestaurantId = restaurantId
+            };
+
+            await employeeRepository.AddAsync(newEmployee);
+            await employeeRepository.SaveChangesAsync();
+
+            await restaurantEmployeeRepository.AddAsync(restaurantEmploye);
+            await restaurantEmployeeRepository.SaveChangesAsync();
+        }
     }
 }

@@ -25,7 +25,20 @@ namespace Kitchelp_API.Controllers
                 return BadRequest();
             }
 
-            return Ok(result);
+            return Ok();
+        }
+
+        [HttpPost("/RegisterEmployee")]
+        public async Task<ActionResult> RegisterEmployee([FromRoute] Guid restaurantId, RegisterRequestDTO dto)
+        {
+            var result = await _registerService.RegisterEmployee(dto, restaurantId);
+
+            if (!result)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
     }
 }

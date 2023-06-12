@@ -6,5 +6,6 @@ namespace Application.Interfaces.RegisterService
     {
         Task<bool> ValidateRequest(RegisterRequestDTO dto);
         Task RegisterOwner(RegisterRequestDTO dto);
+        Task RegisterEmployee(RegisterRequestDTO dto, Guid restaurantId);
     }
 }

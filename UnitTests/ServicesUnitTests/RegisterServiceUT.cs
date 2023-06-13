@@ -34,8 +34,12 @@ namespace UnitTests.ServicesUnitTests
             };
 
             _mockRegisterServiceHelper
-                .Setup(h => h.ValidateRequest(dto))
-                .ReturnsAsync(true);
+                .Setup(helper => helper.ValidateRequest(dto))
+                .ReturnsAsync(true); // Simulate a successful validation
+
+            _mockRegisterServiceHelper
+                .Setup(helper => helper.RegisterOwner(dto))
+                .ReturnsAsync(true); // Simulate a successful owner registration
 
             // Act
             var result = await _registerService.RegisterOwner(dto);
@@ -60,6 +64,10 @@ namespace UnitTests.ServicesUnitTests
 
             _mockRegisterServiceHelper
                 .Setup(h => h.ValidateRequest(dto))
+                .ReturnsAsync(false);
+
+            _mockRegisterServiceHelper
+                .Setup(helper => helper.RegisterOwner(dto))
                 .ReturnsAsync(false);
 
             // Act
@@ -112,6 +120,10 @@ namespace UnitTests.ServicesUnitTests
                 .Setup(h => h.ValidateRequest(dto))
                 .ReturnsAsync(false);
 
+            _mockRegisterServiceHelper
+                .Setup(helper => helper.RegisterOwner(dto))
+                .ReturnsAsync(false);
+
             // Act
             var result = await _registerService.RegisterOwner(dto);
 
@@ -137,6 +149,10 @@ namespace UnitTests.ServicesUnitTests
                 .Setup(h => h.ValidateRequest(dto))
                 .ReturnsAsync(false);
 
+            _mockRegisterServiceHelper
+                .Setup(helper => helper.RegisterOwner(dto))
+                .ReturnsAsync(false);
+
             // Act
             var result = await _registerService.RegisterOwner(dto);
 
@@ -160,6 +176,10 @@ namespace UnitTests.ServicesUnitTests
 
             _mockRegisterServiceHelper
                 .Setup(h => h.ValidateRequest(dto))
+                .ReturnsAsync(false);
+
+            _mockRegisterServiceHelper
+                .Setup(helper => helper.RegisterOwner(dto))
                 .ReturnsAsync(false);
 
             // Act

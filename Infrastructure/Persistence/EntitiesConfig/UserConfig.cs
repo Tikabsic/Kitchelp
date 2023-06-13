@@ -17,10 +17,6 @@ namespace Infrastructure.Persistence.EntitiesConfig
             builder.Property(x => x.Email)
                 .IsRequired();
 
-            builder.Property(x => x.Password)
-                .HasMaxLength(32)
-                .IsRequired();
-
             builder.Property(x => x.FirstName)
                 .IsRequired()
                 .HasMaxLength(16);

@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 
 namespace Application.Middleware
 {
@@ -20,7 +19,7 @@ namespace Application.Middleware
             {
                 await next.Invoke(context);
             }
-            catch(BadValidationException exception)
+            catch (BadValidationException exception)
             {
                 _loggingHandler.LogException(exception);
 

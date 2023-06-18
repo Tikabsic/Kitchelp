@@ -1,6 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Interfaces;
 using Application.Interfaces.RegisterService;
+using Application.Interfaces.Repository;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Exceptions;

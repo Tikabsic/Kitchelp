@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Interfaces.Repository;
 using Domain.Entities;
 using Infrastructure.Logging;
 using Infrastructure.Persistence;
@@ -26,6 +27,9 @@ public static class DependencyInjection
 
         services.AddScoped<IRepository<Restaurant>>(provider =>
             new Repository<Restaurant>(provider.GetService<AppDbContext>()));
+
+        services.AddScoped<IRepository<User>>(provider =>
+            new Repository<User>(provider.GetService<AppDbContext>()));
 
         services.AddScoped<IRepository<Owner>>(provider =>
             new Repository<Owner>(provider.GetService<AppDbContext>()));

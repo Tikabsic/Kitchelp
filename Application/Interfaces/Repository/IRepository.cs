@@ -1,5 +1,4 @@
-﻿
-namespace Application.Interfaces
+﻿namespace Application.Interfaces.Repository
 {
     public interface IRepository<TEntity> where TEntity : class
     {

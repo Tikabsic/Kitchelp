@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Middleware
 {
-    internal class ExceptionHandlerMiddleware : IMiddleware
+    public class ErrorHandligMiddleware : IMiddleware
     {
         private readonly ILoggingHandler _loggingHandler;
 
-        public ExceptionHandlerMiddleware(ILoggingHandler loggingHandler)
+        public ErrorHandligMiddleware(ILoggingHandler loggingHandler)
         {
             _loggingHandler = loggingHandler;
         }
@@ -20,6 +20,13 @@ namespace Application.Middleware
                 await next.Invoke(context);
             }
             catch (BadValidationException exception)
+            {
+                _loggingHandler.LogException(exception);
+
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(exception.Message);
+            }
+            catch (BadRequestException exception)
             {
                 _loggingHandler.LogException(exception);
 

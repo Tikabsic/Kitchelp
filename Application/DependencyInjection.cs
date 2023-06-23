@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Application.Interfaces.OwnerService;
+using Application.Services.OwnerService;
 
 namespace Application
 {
@@ -28,6 +30,7 @@ namespace Application
 
             configuration.GetSection("Authentication").Bind(authenticationSettings);
 
+            services.AddScoped<AuthSettings>(provider => authenticationSettings);
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = "Bearer";
@@ -46,7 +49,7 @@ namespace Application
             });
 
                 //Validators scope
-                services.AddScoped<IValidator<RegisterRequestDTO>, RegisterValidator>();
+                services.AddScoped<IValidator<RegisterRequest>, RegisterValidator>();
 
             //Services scope
             services.AddScoped<IRegisterService, RegisterService>();
@@ -54,6 +57,9 @@ namespace Application
 
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ILoginServiceHelper, LoginServiceHelper>();
+
+            services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<IOwnerServiceHelper, OwnerServiceHelper>();
 
             services.AddScoped<IPasswordHasher, PasswordHasher>();
 

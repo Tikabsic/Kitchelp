@@ -12,7 +12,7 @@ namespace Domain.Entities
         public List<Employee>? Employees { get; set; }
         public Warehouse? Warehouse { get; set; }
         public List<ShoppingList>? ShoppingLists { get; set; }
-        public DateTime DateOfJoin { get; set; }
+        public DateTime DateOfJoin { get; set; } = DateTime.Today;
         public DateTime DateOfPayment { get; set; }
 
     }

@@ -23,7 +23,7 @@ namespace UnitTests.ServicesUnitTests
         public async Task RegisterOwner_WithValidRequest_ReturnsTrue()
         {
             // Arrange
-            var dto = new RegisterRequestDTO()
+            var dto = new RegisterRequest()
             {
                 Email = "dto@dto.dto",
                 Password = "Dto123Dto!",
@@ -52,7 +52,7 @@ namespace UnitTests.ServicesUnitTests
         public async Task RegisterOwner_WithInvalidRequest_DifferentPasswords_ReturnsFalse()
         {
             // Arrange
-            var dto = new RegisterRequestDTO()
+            var dto = new RegisterRequest()
             {
                 Email = "dto@dto.dto",
                 Password = "Dto123Dto!",
@@ -81,7 +81,7 @@ namespace UnitTests.ServicesUnitTests
         public async Task RegisterOwner_WithInvalidRequest_WrongEmail_ReturnsFalse()
         {
             // Arrange
-            var dto = new RegisterRequestDTO()
+            var dto = new RegisterRequest()
             {
                 Email = "dtodto.dto",
                 Password = "Dto123Dto!",
@@ -106,7 +106,7 @@ namespace UnitTests.ServicesUnitTests
         public async Task RegisterOwner_WithInvalidRequest_NoFirstName_ReturnsFalse()
         {
             // Arrange
-            var dto = new RegisterRequestDTO()
+            var dto = new RegisterRequest()
             {
                 Email = "dto@dto.dto",
                 Password = "Dto123Dto!",
@@ -135,7 +135,7 @@ namespace UnitTests.ServicesUnitTests
         public async Task RegisterOwner_WithInvalidRequest_NoLastName_ReturnsFalse()
         {
             // Arrange
-            var dto = new RegisterRequestDTO()
+            var dto = new RegisterRequest()
             {
                 Email = "dto@dto.dto",
                 Password = "Dto123Dto!",
@@ -164,7 +164,7 @@ namespace UnitTests.ServicesUnitTests
         public async Task RegisterOwner_WithInvalidRequest_NoDateOfBirth_ReturnsFalse()
         {
             // Arrange
-            var dto = new RegisterRequestDTO()
+            var dto = new RegisterRequest()
             {
                 Email = "dto@dto.dto",
                 Password = "Dto123Dto!",

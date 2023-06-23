@@ -16,7 +16,7 @@ namespace Kitchelp_API.Controllers
             _loginService = loginService;
         }
 
-        [HttpGet("/login")]
+        [HttpPost("/login")]
         public async Task<ActionResult> LoginUser(UserLoginRequest dto)
         {
             var request = await _loginService.VerifyRequest(dto);

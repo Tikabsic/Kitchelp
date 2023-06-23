@@ -11,7 +11,7 @@ namespace Application.Services.RegisterService
             _registerServiceHelper = registerServiceHelper;
         }
 
-        public async Task<bool> RegisterEmployee(RegisterRequestDTO dto, Guid restaurantId)
+        public async Task<bool> RegisterEmployee(RegisterRequest dto, Guid restaurantId)
         {
             var request = await _registerServiceHelper.RegisterEmployee(dto, restaurantId);
 
@@ -23,9 +23,21 @@ namespace Application.Services.RegisterService
             return true;
         }
 
-        public async Task<bool> RegisterOwner(RegisterRequestDTO dto)
+        public async Task<bool> RegisterOwner(RegisterRequest dto)
         {
             var request = await _registerServiceHelper.RegisterOwner(dto);
+
+            if (!request)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task<bool> RegisterRestaurant(Guid ownerId,RestaurantRegisterRequest dto)
+        {
+            var request = await _registerServiceHelper.RegisterRestaurant(ownerId, dto);
 
             if (!request)
             {

@@ -1,5 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Interfaces.RegisterService;
+using Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kitchelp_API.Controllers
@@ -16,7 +18,7 @@ namespace Kitchelp_API.Controllers
         }
 
         [HttpPost("/RegisterOwner")]
-        public async Task<ActionResult> RegisterOwner(RegisterRequestDTO request)
+        public async Task<ActionResult> RegisterOwner(RegisterRequest request)
         {
             var result = await _registerService.RegisterOwner(request);
 
@@ -25,20 +27,34 @@ namespace Kitchelp_API.Controllers
                 return BadRequest();
             }
 
-            return Ok();
+            return Ok($"Welcome, {request.FirstName}!");
         }
 
-        [HttpPost("/RegisterEmployee")]
-        public async Task<ActionResult> RegisterEmployee([FromRoute] Guid restaurantId, RegisterRequestDTO dto)
+        [HttpPost("/RegisterEmployee/{restaurantId}")]
+        public async Task<ActionResult> RegisterEmployee([FromRoute] Guid restaurantId, RegisterRequest request)
         {
-            var result = await _registerService.RegisterEmployee(dto, restaurantId);
+            var result = await _registerService.RegisterEmployee(request, restaurantId);
 
             if (!result)
             {
                 return BadRequest();
             }
 
-            return Ok();
+            return Ok($"Welcome, {request.FirstName}!");
+        }
+
+        [HttpPost("/RegisterRestaurant/{ownerId}")]
+        [Authorize(policy: "RequireOwnerRole")]
+        public async Task<ActionResult> RegisterRestaurant([FromRoute] Guid ownerId, RestaurantRegisterRequest request)
+        {
+            var result = await _registerService.RegisterRestaurant(ownerId, request);
+
+            if (!result)
+            {
+                return BadRequest();
+            }
+
+            return Ok($"Restaurant {request.RestaurantName} has been added.");
         }
     }
 }

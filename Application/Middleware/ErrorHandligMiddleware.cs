@@ -33,6 +33,13 @@ namespace Application.Middleware
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(exception.Message);
             }
+            catch (NotFoundException exception)
+            {
+                _loggingHandler.LogException(exception);
+
+                context.Response.StatusCode = 404;
+                await context.Response.WriteAsync(exception.Message);
+            }
         }
     }
 }

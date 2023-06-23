@@ -8,8 +8,9 @@ namespace Application.MappingProfiles
     {
         public MappingProfilesConfiguration()
         {
-            CreateMap<RegisterRequestDTO, Owner>();
-            CreateMap<RegisterRequestDTO, Employee>();
+            CreateMap<RegisterRequest, Owner>();
+            CreateMap<RegisterRequest, Employee>();
+            CreateMap<RestaurantRegisterRequest, Restaurant>();
         }
     }
 }

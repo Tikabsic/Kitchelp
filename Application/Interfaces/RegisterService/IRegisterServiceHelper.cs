@@ -4,8 +4,9 @@ namespace Application.Interfaces.RegisterService
 {
     public interface IRegisterServiceHelper
     {
-        Task<bool> ValidateRequest(RegisterRequestDTO dto);
-        Task<bool> RegisterOwner(RegisterRequestDTO dto);
-        Task<bool> RegisterEmployee(RegisterRequestDTO dto, Guid restaurantId);
+        Task<bool> ValidateRequest(RegisterRequest dto);
+        Task<bool> RegisterOwner(RegisterRequest dto);
+        Task<bool> RegisterEmployee(RegisterRequest dto, Guid restaurantId);
+        Task<bool> RegisterRestaurant(Guid ownerId, RestaurantRegisterRequest dto);
     }
 }

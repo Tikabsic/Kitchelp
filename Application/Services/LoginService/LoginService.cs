@@ -31,8 +31,7 @@ namespace Application.Services.LoginService
 
         public async Task<string> GenerateToken(UserLoginRequest request)
         {
-            var token = await _loginServiceHelper.GenerateToken(request);
-            return token;
+            return await _loginServiceHelper.GenerateToken(request);
         }
     }
 }

@@ -1,8 +1,8 @@
 using Application;
 using Application.Middleware;
 using Domain;
+using Domain.Enums;
 using Infrastructure;
-using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddDomain();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireOwnerRole", policy =>
+        policy.RequireRole(Role.Owner.ToString()));
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -28,6 +33,8 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ErrorHandligMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

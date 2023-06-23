@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Application.Validation.RegisterValidator
 {
-    internal class RegisterValidator : AbstractValidator<RegisterRequestDTO>
+    internal class RegisterValidator : AbstractValidator<RegisterRequest>
     {
         public RegisterValidator(IAppDbContext dbContext)
         {

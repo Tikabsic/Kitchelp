@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Authentication
 {
-    internal class AuthSettings
+    public class AuthSettings
     {
         public string JWTKey { get; set; }
         public int JWTExpireDays { get; set; }

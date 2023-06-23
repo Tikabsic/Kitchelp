@@ -38,11 +38,11 @@ namespace Application.Services.LoginService
 
             var claims = new List<Claim>()
             {
-                new Claim("Id", user.Id.ToString()),
-                new Claim("FirstName", $"{user.FirstName}"),
-                new Claim("LastName", $"{user.LastName}"),
-                new Claim("Email", $"{user.Email}"),
-                new Claim("Role", $"{user.Role}")
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, $"{user.FirstName}"),
+                new Claim(ClaimTypes.Name, $"{user.LastName}"),
+                new Claim(ClaimTypes.Email, $"{user.Email}"),
+                new Claim(ClaimTypes.Role, $"{user.Role}")
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authSettings.JWTKey));

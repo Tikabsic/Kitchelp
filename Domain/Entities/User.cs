@@ -13,6 +13,6 @@ namespace Domain.Entities
         public string? LastName { get; set; }
         public string? DateOfBirth { get; set; }
         public List<Chat>? Chats { get; set; }
-        public DateTime DateOfJoin { get; set; } = DateTime.Now;
+        public DateTime DateOfJoin { get; set; } = DateTime.Today;
     }
 }

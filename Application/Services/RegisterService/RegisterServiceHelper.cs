@@ -15,24 +15,39 @@ namespace Application.Services.RegisterService
     {
         private readonly IRepositoryFactory _repositoryFactory;
         private readonly IValidator<RegisterRequest> _registerValidator;
+        private readonly IValidator<RestaurantRegisterRequest> _restaurantValidator;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher _passwordHasher;
 
         public RegisterServiceHelper
             (IRepositoryFactory repositoryFactory,
             IValidator<RegisterRequest> registerValidator,
+            IValidator<RestaurantRegisterRequest> restaurantValidator,
             IMapper mapper,
             IPasswordHasher passwordHasher)
         {
             _repositoryFactory = repositoryFactory;
             _registerValidator = registerValidator;
+            _restaurantValidator = restaurantValidator;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<bool> ValidateRequest(RegisterRequest dto)
+        public async Task<bool> ValidateUserRequest(RegisterRequest dto)
         {
             var result = await _registerValidator.ValidateAsync(dto);
+
+            if (!result.IsValid)
+            {
+                var errors = result.ToString();
+                throw new BadValidationException(errors);
+            }
+            return true;
+        }
+
+        public async Task<bool> ValidateRestaurantRequest(RestaurantRegisterRequest dto)
+        {
+            var result = await _restaurantValidator.ValidateAsync(dto);
 
             if (!result.IsValid)
             {
@@ -49,20 +64,14 @@ namespace Application.Services.RegisterService
 
             if (owner is null)
             {
-                throw new NotFoundException("The Owner with the provided ID was not found.");
+                throw new NotFoundException(ownerId);
             }
 
             return true;
         }
 
-        public async Task<bool> RegisterOwner(RegisterRequest dto)
+        public async Task RegisterOwner(RegisterRequest dto)
         {
-            var request = await ValidateRequest(dto);
-            if (!request)
-            {
-                return false;
-            }
-
             var ownerRepository = _repositoryFactory.Create<Owner>();
 
             var newRestaurantOwner = _mapper.Map<Owner>(dto);
@@ -72,23 +81,16 @@ namespace Application.Services.RegisterService
             newRestaurantOwner.Payments = 0.0;
             await ownerRepository.AddAsync(newRestaurantOwner);
             await ownerRepository.SaveChangesAsync();
-
-            return true;
         }
 
-        public async Task<bool> RegisterEmployee(RegisterRequest dto, Guid restaurantId)
+        public async Task RegisterEmployee(RegisterRequest dto, Guid restaurantId)
         {
-            var request = await ValidateRequest(dto);
-            if (!request)
-            {
-                return false;
-            }
-
             var restaurantRepository = _repositoryFactory.Create<Restaurant>();
             var restaurant = await restaurantRepository.GetByIdAsync(restaurantId);
+
             if (restaurant is null)
             {
-                return false;
+                throw new NotFoundException(restaurantId);
             }
 
             var employeeRepository = _repositoryFactory.Create<Employee>();
@@ -110,12 +112,11 @@ namespace Application.Services.RegisterService
 
             await restaurantEmployeeRepository.AddAsync(restaurantEmploye);
             await restaurantEmployeeRepository.SaveChangesAsync();
-
-            return true;
         }
 
-        public async Task<bool> RegisterRestaurant(Guid ownerId, RestaurantRegisterRequest dto)
+        public async Task RegisterRestaurant(Guid ownerId, RestaurantRegisterRequest dto)
         {
+
             var restaurantRepository = _repositoryFactory.Create<Restaurant>();
 
             var newRestaurant = _mapper.Map<Restaurant>(dto);
@@ -124,8 +125,6 @@ namespace Application.Services.RegisterService
 
             await restaurantRepository.AddAsync(newRestaurant);
             await restaurantRepository.SaveChangesAsync();
-
-            return true;
         }
     }
 }

@@ -48,8 +48,9 @@ namespace Application
                 };
             });
 
-                //Validators scope
-                services.AddScoped<IValidator<RegisterRequest>, RegisterValidator>();
+            //Validators scope
+            services.AddScoped<IValidator<RegisterRequest>, UserRegisterValidator>();
+            services.AddScoped<IValidator<RestaurantRegisterRequest>, RestaurantRegisterValidator>();
 
             //Services scope
             services.AddScoped<IRegisterService, RegisterService>();

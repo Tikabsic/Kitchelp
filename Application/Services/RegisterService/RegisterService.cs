@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces.RegisterService;
+using Domain.Entities;
 
 namespace Application.Services.RegisterService
 {
@@ -13,37 +14,42 @@ namespace Application.Services.RegisterService
 
         public async Task<bool> RegisterEmployee(RegisterRequest dto, Guid restaurantId)
         {
-            var request = await _registerServiceHelper.RegisterEmployee(dto, restaurantId);
+            var validationResult = await _registerServiceHelper.ValidateUserRequest(dto);
 
-            if (!request)
+            if (!validationResult)
             {
                 return false;
             }
 
+            await _registerServiceHelper.RegisterEmployee(dto, restaurantId);
             return true;
         }
 
         public async Task<bool> RegisterOwner(RegisterRequest dto)
         {
-            var request = await _registerServiceHelper.RegisterOwner(dto);
+            var validationResult = await _registerServiceHelper.ValidateUserRequest(dto);
 
-            if (!request)
+            if (!validationResult)
             {
                 return false;
             }
 
+            await _registerServiceHelper.RegisterOwner(dto);
             return true;
         }
 
         public async Task<bool> RegisterRestaurant(Guid ownerId,RestaurantRegisterRequest dto)
         {
-            var request = await _registerServiceHelper.RegisterRestaurant(ownerId, dto);
+            var ownerValidationResult = await _registerServiceHelper.ValidateOwner(ownerId);
+            var restaurantValidationResult = await _registerServiceHelper.ValidateRestaurantRequest(dto);
 
-            if (!request)
+            if (!ownerValidationResult ||
+                !restaurantValidationResult)
             {
                 return false;
             }
 
+            await _registerServiceHelper.RegisterRestaurant(ownerId, dto);
             return true;
         }
     }

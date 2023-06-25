@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace Application.Validation.RegisterValidator
 {
-    internal class RegisterValidator : AbstractValidator<RegisterRequest>
+    internal class UserRegisterValidator : AbstractValidator<RegisterRequest>
     {
-        public RegisterValidator(IAppDbContext dbContext)
+        public UserRegisterValidator(IAppDbContext dbContext)
         {
             RuleFor(x => x.Email)
                 .EmailAddress()

@@ -18,6 +18,7 @@ namespace Infrastructure.Persistence
         public DbSet<ShoppingListProduct> ShoppingListProducts { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<InvitationToken> InvitationTokens { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {

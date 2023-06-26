@@ -40,6 +40,13 @@ namespace Application.Middleware
                 context.Response.StatusCode = 404;
                 await context.Response.WriteAsync(exception.Message);
             }
+            catch (EmptySMTPCredentialsException exception)
+            {
+                _loggingHandler.LogException(exception);
+
+                context.Response.StatusCode = 401;
+                await context.Response.WriteAsync(exception.Message);
+            }
         }
     }
 }

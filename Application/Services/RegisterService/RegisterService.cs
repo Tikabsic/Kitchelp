@@ -12,16 +12,18 @@ namespace Application.Services.RegisterService
             _registerServiceHelper = registerServiceHelper;
         }
 
-        public async Task<bool> RegisterEmployee(RegisterRequest dto, Guid restaurantId)
+        public async Task<bool> RegisterEmployee(RegisterRequest dto, string invitationToken)
         {
+            var token = await _registerServiceHelper.ValidateInvitationToken(invitationToken);
             var validationResult = await _registerServiceHelper.ValidateUserRequest(dto);
 
-            if (!validationResult)
+            if (!validationResult ||
+                token is null)
             {
                 return false;
             }
 
-            await _registerServiceHelper.RegisterEmployee(dto, restaurantId);
+            await _registerServiceHelper.RegisterEmployee(dto, token);
             return true;
         }
 

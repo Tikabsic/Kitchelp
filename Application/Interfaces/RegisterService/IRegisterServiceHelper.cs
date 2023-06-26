@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Domain.Entities;
 
 namespace Application.Interfaces.RegisterService
 {
@@ -7,8 +8,9 @@ namespace Application.Interfaces.RegisterService
         Task<bool> ValidateUserRequest(RegisterRequest dto);
         Task<bool> ValidateRestaurantRequest(RestaurantRegisterRequest dto);
         Task<bool> ValidateOwner(Guid ownerId);
+        Task<InvitationToken> ValidateInvitationToken(string token);
         Task RegisterOwner(RegisterRequest dto);
-        Task RegisterEmployee(RegisterRequest dto, Guid restaurantId);
+        Task RegisterEmployee(RegisterRequest dto, InvitationToken invitationToken);
         Task RegisterRestaurant(Guid ownerId, RestaurantRegisterRequest dto);
     }
 }

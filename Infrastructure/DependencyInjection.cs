@@ -61,6 +61,9 @@ public static class DependencyInjection
         services.AddScoped<IRepository<Warehouse>>(provider =>
             new Repository<Warehouse>(provider.GetService<AppDbContext>()));
 
+        services.AddScoped<IRepository<InvitationToken>>(provider =>
+            new Repository<InvitationToken>(provider.GetService<AppDbContext>()));
+
         //Logger scope
         services.AddScoped<ILoggingHandler, LoggingHandler>();
 

@@ -7,6 +7,7 @@ using Domain.Entities;
 using Domain.Enums;
 using Domain.Exceptions;
 using FluentValidation;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Application.Services.RegisterService
 {
@@ -70,6 +71,20 @@ namespace Application.Services.RegisterService
             return true;
         }
 
+        public async Task<InvitationToken> ValidateInvitationToken(string token)
+        {
+            var repository = _repositoryFactory.Create<InvitationToken>();
+            var tokens = await repository.GetAllAsync();
+            var desiredToken = tokens.First(x => x.Token == token);
+
+            if (desiredToken is null)
+            {
+                throw new BadRequestException("Wrong invitation token.");
+            }
+
+            return desiredToken;
+        }
+
         public async Task RegisterOwner(RegisterRequest dto)
         {
             var ownerRepository = _repositoryFactory.Create<Owner>();
@@ -83,14 +98,15 @@ namespace Application.Services.RegisterService
             await ownerRepository.SaveChangesAsync();
         }
 
-        public async Task RegisterEmployee(RegisterRequest dto, Guid restaurantId)
+        public async Task RegisterEmployee(RegisterRequest dto, InvitationToken invitationToken)
         {
+            var tokenRepository = _repositoryFactory.Create<InvitationToken>();
             var restaurantRepository = _repositoryFactory.Create<Restaurant>();
-            var restaurant = await restaurantRepository.GetByIdAsync(restaurantId);
+            var restaurant = await restaurantRepository.GetByIdAsync(invitationToken.RestaurantId);
 
             if (restaurant is null)
             {
-                throw new NotFoundException(restaurantId);
+                throw new NotFoundException(invitationToken.RestaurantId);
             }
 
             var employeeRepository = _repositoryFactory.Create<Employee>();
@@ -104,8 +120,11 @@ namespace Application.Services.RegisterService
                 Employee = newEmployee,
                 EmployeeId = newEmployee.Id,
                 Restaurant = restaurant,
-                RestaurantId = restaurantId
+                RestaurantId = invitationToken.RestaurantId
             };
+
+            tokenRepository.Delete(invitationToken);
+            await tokenRepository.SaveChangesAsync();
 
             await employeeRepository.AddAsync(newEmployee);
             await employeeRepository.SaveChangesAsync();

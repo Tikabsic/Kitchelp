@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces.RegisterService;
+using Domain.Entities;
 using Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,10 +31,10 @@ namespace Kitchelp_API.Controllers
             return Ok($"Welcome, {request.FirstName}!");
         }
 
-        [HttpPost("/RegisterEmployee/{restaurantId}")]
-        public async Task<ActionResult> RegisterEmployee([FromRoute] Guid restaurantId, RegisterRequest request)
+        [HttpPost("/RegisterEmployee/{invitationToken}")]
+        public async Task<ActionResult> RegisterEmployee([FromRoute] string invitationToken, RegisterRequest request)
         {
-            var result = await _registerService.RegisterEmployee(request, restaurantId);
+            var result = await _registerService.RegisterEmployee(request, invitationToken);
 
             if (!result)
             {

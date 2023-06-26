@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Application.Interfaces.OwnerService;
 using Application.Services.OwnerService;
+using Application.SMTP;
 
 namespace Application
 {
@@ -63,6 +64,7 @@ namespace Application
             services.AddScoped<IOwnerServiceHelper, OwnerServiceHelper>();
 
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddScoped<IEmailClient, EmailClient>();
 
             //Automapper scope
             services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfilesConfiguration)));
